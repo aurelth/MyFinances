@@ -1,1 +1,33 @@
-<p>expense-list works!</p>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col">
+      <h2>Total Expenses for the Month: {{ totalExpenses | currency }}</h2>
+    </div>
+    <div class="col text-end">
+      <select class="form-select" [(ngModel)]="selectedMonth" (change)="filterByMonth()">
+        <option *ngFor="let month of months" [value]="month">{{ month }}</option>
+      </select>
+    </div>
+  </div>
+  <table class="table table-striped mt-4">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Amount</th>
+        <th>Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let expense of filteredExpenses">
+        <td>{{ expense.name }}</td>
+        <td>{{ expense.amount | currency }}</td>
+        <td>{{ expense.date | date }}</td>
+        <td>
+          <button class="btn btn-primary" (click)="editExpense(expense)">Edit</button>
+          <button class="btn btn-danger" (click)="deleteExpense(expense.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
